@@ -1,0 +1,24 @@
+
+body{
+  background-color: #2d3748;
+}
+.content{
+  width: 100%;
+  height: calc(100vh - 3rem);
+}
+.main{
+  width: 100%;
+  height: calc(100vh - 5rem);
+}
+.editor{
+  height: 70vh;
+}
+textarea:focus{
+  outline: none;
+}
+textarea::placeholder{
+  color:#48bb78
+}
+.react-codemirror2,.CodeMirror{
+  height: 100%;
+}
