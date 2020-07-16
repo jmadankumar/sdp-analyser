@@ -4,11 +4,10 @@ body{
 }
 .content{
   width: 100%;
-  height: calc(100vh - 3rem);
+  height: calc(100vh - 5rem);
 }
 .main{
   width: 100%;
-  height: calc(100vh - 5rem);
 }
 .editor{
   height: 70vh;

@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `SDP parser & Analyser`,
+    title: `Session Description Protocol Analyser`,
     description: `Session description protocol parser and analyser`,
     author: `Madan Kumar`,
   },
@@ -18,13 +18,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `session description protocol analyser`,
+        short_name: `sdp analyser`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#48bb78`,
+        theme_color: `#48bb78`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/sdp.png`, // This path is relative to the root of the site.
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
