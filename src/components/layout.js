@@ -30,10 +30,15 @@ const Layout = ({ children, showHeader }) => {
         className="content"
       >
         <main className="main">{children}</main>
-        <footer className="text-center">
-          © {new Date().getFullYear()}, Built with
+        <footer className="text-center text-white">
+          <p>
+            © {new Date().getFullYear()}, Built with
           {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
+            <a href="https://www.gatsbyjs.org">Gatsby</a>
+          </p>
+          <p>
+            Made with by <span className="text-red-500 text-xl">&hearts;</span> <a href="https://github.com/jmadankumar">Madan</a>
+          </p>
         </footer>
       </div>
     </>

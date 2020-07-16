@@ -1,126 +1,46 @@
 import React, { useState } from "react"
-import { Link, graphql } from "gatsby"
+import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import * as sdpTransform from 'sdp-transform';
-import ReactJson from 'react-json-view';
-import { Controlled as CodeMirror } from 'react-codemirror2';
+
 import cx from 'classnames';
 import Button from "../components/Button";
-const sdpStr = "v=0\r\n\
-o=UniMRCPServer 1212606071011504954 4868540303632141964 IN IP4 192.168.88.136\r\n\
-s=-\r\n\
-c=IN IP4 192.168.88.136\r\n\
-t=0 0\r\n\
-m=application 1544 TCP/MRCPv2 1\r\n\
-a=setup:passive\r\n\
-a=connection:new\r\n\
-a=channel:1228fd00945a4963@speechsynth\r\n\
-a=cmid:1\r\n\
-m=audio 5860 RTP/AVP 0\r\n\
-a=rtpmap:0 PCMU/8000\r\n\
-a=sendonly\r\n\
-a=mid:1\r\n\
-";
+import SdpEditor from "../components/SdpEditor";
+import SdpAnalyser from "../components/SdpAnalyser";
+
 const IndexPage = ({ data }) => {
   const [sdpText, setSdpText] = useState('');
-  const [sdpOutput, setSdpOutput] = useState({});
+  const [isAnalyserVisibile, setAnalyserVisible] = useState(true);
 
-  const [isJsonViewerVisibile, setJsonViewerVisible] = useState(false);
-  const [isAnalyserVisibile, setAnalyserVisible] = useState(false);
-  console.log(data);
-
-  const handleAnalyse = () => {
-    setJsonViewerVisible(false);
+  const handleSdpTextChange = (text) => {
+    setSdpText(text);
     setAnalyserVisible(true);
-    if (sdpText) {
-      let res = removeSpecialCharFromObject(sdpTransform.parse(sdpText));
-      setSdpOutput(res);
-    }
   }
-  const removeSpecialCharFromObject = (res) => {
-    if (typeof res === 'string') {
-      res = res.replace('\\r\\n\\', "");
-    } else if (res instanceof Array) {
-      for (let i = 0; i < res.length; i++) {
-        res[i] = removeSpecialCharFromObject(res[i]);
-      }
 
-    } else if (typeof res === 'object') {
-      for (let key of Object.keys(res)) {
-        const value = res[key];
-        res[key] = removeSpecialCharFromObject(value);
-      }
-    }
-    return res;
-  }
-  const handleConvertToJSON = () => {
-    setJsonViewerVisible(true);
-    setAnalyserVisible(false);
-    if (sdpText) {
-      let res = sdpTransform.parse(sdpText);
-      res = removeSpecialCharFromObject(res);
-      setSdpOutput(res);
-    }
-  }
   return (
     <Layout>
       <SEO title={data.site.siteMetadata.title} />
 
-      <div className="w-full h-full overflow-hidden  bg-gray-800">
+      <div className="w-full h-full overflow-hidden bg-gray-800">
         <div className="flex px-8 h-16 justify-between items-center mb-5">
-          <div className="text-2xl text-white"> SDP Parser and Analyser</div>
+          <div className="text-2xl text-white mr-5"> SDP Analyser</div>
           <div>
-            <Button onClick={handleConvertToJSON} className="mr-2">
-              Convert to JSON
-            </Button>
-            <Button onClick={handleAnalyse}>
-              Analyse
-            </Button>
+            <a href="https://github.com/jmadankumar/sdp-analyser">
+              <svg role="img" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-white">
+                <path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+              </svg>
+            </a>
           </div>
         </div>
 
         <div className="flex -mx-8 px-8">
-          <section id="sdp-input-section"
-            className={
-              cx("w-1/2 px-4",
-                { "w-full": !isJsonViewerVisibile && !isAnalyserVisibile }
-              )}>
-            <div className="text-center text-white p-2">Paste SDP here</div>
-            <div className="editor bg-gray-900 outline-none">
-              <CodeMirror
-                value={sdpText}
-                options={{
-                  mode: 'text',
-                  theme: 'material',
-                  lineNumbers: true
-                }}
-                onBeforeChange={(editor, data, value) => {
-                  setSdpText(value)
-                }}
-                onChange={(editor, data, value) => {
-                  setSdpText(value)
-                }}
-              />
-            </div>
+          <section id="sdp-input-section" className={cx("w-1/2 px-4")}>
+            <div className="text-white text-center p-2">Paste SDP here</div>
+            <SdpEditor className="editor" text={sdpText} onChange={handleSdpTextChange} />
           </section>
-          <section id="sdp-output-section"
-            className={cx("w-1/2 px-4",
-              { hidden: !isJsonViewerVisibile && !isAnalyserVisibile }
-            )} >
-            <div className="text-center text-white p-2">{isJsonViewerVisibile ? "SDP JSON" : "SDP analyser"}</div>
-            <div className="editor bg-gray-100 p-8 outline-none overflow-y-auto">
-              <div id="sdp-text-input"
-                className="w-full h-full bg-transparent border-0 "
-              >
-                {isJsonViewerVisibile &&
-                  <ReactJson
-                    src={sdpOutput}
-                    displayDataTypes={false}
-                    displayObjectSize={false} />
-                }
-              </div>
-            </div>
+          <section id="sdp-output-section" className={cx("w-1/2 px-4")} >
+            <div className="text-center text-white p-2">SDP JSON output</div>
+            <SdpAnalyser text={sdpText} className="editor" />
           </section>
         </div>
       </div>
