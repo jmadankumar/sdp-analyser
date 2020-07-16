@@ -2,11 +2,11 @@ import React, { useState } from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-
+import loadable from '@loadable/component'
 import cx from 'classnames';
-import Button from "../components/Button";
 import SdpEditor from "../components/SdpEditor";
-import SdpAnalyser from "../components/SdpAnalyser";
+
+const SdpAnalyserLoadable = loadable(() => import('../components/SdpAnalyser'))
 
 const IndexPage = ({ data }) => {
   const [sdpText, setSdpText] = useState('');
@@ -40,7 +40,7 @@ const IndexPage = ({ data }) => {
           </section>
           <section id="sdp-output-section" className={cx("w-1/2 px-4")} >
             <div className="text-center text-white p-2">SDP JSON output</div>
-            <SdpAnalyser text={sdpText} className="editor" />
+            <SdpAnalyserLoadable text={sdpText} className="editor" />
           </section>
         </div>
       </div>

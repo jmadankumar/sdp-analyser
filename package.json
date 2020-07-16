@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "@loadable/component": "^5.13.1",
     "classnames": "^2.2.6",
     "codemirror": "^5.55.0",
     "gatsby": "^2.23.12",
