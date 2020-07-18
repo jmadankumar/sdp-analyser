@@ -1,16 +1,22 @@
-
+html{
+  scroll-behavior: smooth;
+}
 body{
   background-color: #2d3748;
 }
 .content{
   width: 100%;
-  height: calc(100vh - 5rem);
 }
 .main{
   width: 100%;
 }
 .editor{
-  height: 70vh;
+  height: 50vh;
+}
+@media screen and (min-width:900px){
+  .editor{
+    height: 70vh;
+  }
 }
 textarea:focus{
   outline: none;

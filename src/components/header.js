@@ -3,9 +3,9 @@ import PropTypes from "prop-types"
 import React from "react"
 
 const Header = ({ siteTitle }) => (
-  <header className="flex px-8 h-16 justify-between items-center mb-5">
-    <Link href="/" className="text-2xl font-bold m-0 mr-5 text-white">{siteTitle} </Link>
-    <div className="flex ">
+  <header className="flex flex-wrap px-8 h-auto md:h-16 justify-between items-center mb-5">
+    <Link href="/" className="text-2xl font-bold m-0 mr-5 text-white mb-2 md:mb-0">{siteTitle} </Link>
+    <div className="flex w-full md:w-auto justify-center md:justify-end">
       <Link href="/useful-links" className="mr-5 border-b border-white text-white hover:text-green-500 hover:border-green-500">
         Useful Links
       </Link>
