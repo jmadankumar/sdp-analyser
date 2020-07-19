@@ -6,7 +6,6 @@ import loadable from "@loadable/component"
 import cx from "classnames"
 import SdpEditor from "../components/SdpEditor"
 import ScrollUp from "react-scrollup-lite"
-
 const SdpAnalyserLoadable = loadable(() => import("../components/SdpAnalyser"))
 
 const IndexPage = ({ data }) => {
@@ -25,7 +24,6 @@ const IndexPage = ({ data }) => {
             id="sdp-input-section"
             className={cx("w-full md:w-1/2 px-4")}
           >
-            <div className="text-white text-center p-2">Paste SDP here</div>
             <SdpEditor
               className="editor"
               text={sdpText}
@@ -36,12 +34,16 @@ const IndexPage = ({ data }) => {
             id="sdp-output-section"
             className={cx("w-full md:w-1/2 w-1/2 px-4")}
           >
-            <div className="text-center text-white p-2">SDP JSON output</div>
             <SdpAnalyserLoadable text={sdpText} className="editor" />
           </section>
         </div>
       </div>
-      <ScrollUp startPosition={0} showAtPosition={200} position="right">
+      <ScrollUp
+        startPosition={0}
+        showAtPosition={200}
+        position="right"
+        style={{ right: "20px" }}
+      >
         <button className="w-10 h-10 rounded-full bg-purple-500 text-white flex justify-center items-center outline-none">
           <svg
             width="40"
